@@ -30,8 +30,8 @@ Crear una plataforma web interactiva que permita gestionar de manera inteligente
 ### Progreso
 - [x] Definición del proyecto (UT0)
 - [x] Creación del repositorio GitHub
-- [ ] Configuración del tablero Trello
-- [ ] Diseño de wireframes/mockups
+- [x] Configuración del tablero Trello
+- [x] Diseño de wireframes/mockups
 - [ ] Desarrollo del modelo de ML
 - [ ] Desarrollo de la interfaz web
 - [ ] Integración de API meteorológica
@@ -100,7 +100,7 @@ Crear una plataforma web interactiva que permita gestionar de manera inteligente
 
 ## 🚀 Instalación (Próximamente)
 
-```bash
+# bash
 # Clonar el repositorio
 git clone https://github.com/tu-usuario/OptiSolarAI.git
 
@@ -141,7 +141,15 @@ Este proyecto está bajo licencia MIT - ver el archivo [LICENSE](LICENSE) para m
 
 - **Repositorio GitHub:** [Este repositorio]
 - **Tablero Trello:** [Próximamente]
-- **Mockups:** [Próximamente]
+- **Mockups:** Ver carpeta `/MockUps`
+
+## 🎨 Mockups del Proyecto
+
+### Pantalla Principal - Home
+![MockUp Home](MockUps/MockUp_Home.png)
+
+### Pantalla de Análisis - Gráficas
+![MockUp Gráficas](MockUps/MockUp_Graficas.png)
 
 ## 📧 Contacto
 
