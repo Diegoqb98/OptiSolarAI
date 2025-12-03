@@ -139,8 +139,8 @@ Este proyecto está bajo licencia MIT - ver el archivo [LICENSE](LICENSE) para m
 
 ## 🔗 Enlaces
 
-- **Repositorio GitHub:** [Este repositorio]
-- **Tablero Trello:** [Próximamente]
+- **Repositorio GitHub:** [https://github.com/Diegoqb98/OptiSolarAI]
+- **Tablero Trello:** [https://trello.com/b/yTMdJhvn/optisolarai]
 - **Mockups:** Ver carpeta `/MockUps`
 
 ## 🎨 Mockups del Proyecto
