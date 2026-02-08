@@ -1,160 +1,169 @@
-# OptiSolarAI: Sistema Inteligente de Gestión Energética
+﻿#  OptiSolarAI - Sistema de Gestión de Energía Solar
 
-![Estado del Proyecto](https://img.shields.io/badge/estado-en%20desarrollo-yellow)
-![Python](https://img.shields.io/badge/python-3.x-blue)
-![License](https://img.shields.io/badge/license-MIT-green)
+Sistema inteligente de gestión de energía solar con Machine Learning que optimiza el uso de baterías para maximizar beneficios económicos.
 
-## 📋 Descripción
+##  Características Principales
 
-**OptiSolarAI** es una plataforma web interactiva desarrollada con Streamlit que permite a empresas y particulares gestionar de manera inteligente la energía solar, maximizando tanto la eficiencia energética como los beneficios económicos.
+- **Dashboard Interactivo**: Visualización en tiempo real de producción solar, precios de electricidad y datos climáticos
+- **Simulación de Batería**: Algoritmo inteligente que decide cuándo cargar, descargar o vender energía
+- **Machine Learning**: Predicción de producción solar usando Random Forest con datos meteorológicos
+- **Análisis Financiero**: Cálculo de ROI, payback y TIR de la instalación solar
+- **Base de Datos**: Gestión eficiente con DuckDB
 
-El sistema combina Machine Learning con simulación de baterías para tomar decisiones automáticas sobre cuándo almacenar, consumir o vender energía a la red eléctrica, optimizando los beneficios económicos según el precio horario de la electricidad.
+##  Estructura del Proyecto
 
-## 🎯 Objetivos del Proyecto
+```
+OptiSolarAI/
 
-### Objetivo General
-Crear una plataforma web interactiva que permita gestionar de manera inteligente la energía solar, maximizando la eficiencia energética y los beneficios económicos.
+ app.py                 # Dashboard principal con Streamlit
+ database.py            # Gestión de DuckDB (@st.cache_resource)
+ ml_engine.py           # Modelo de Random Forest para predicciones
+ logic.py               # Simulador de batería y optimización
+ requirements.txt       # Dependencias del proyecto
 
-### Objetivos Específicos
-- Desarrollar modelos de Machine Learning para predecir producción solar y precios eléctricos
-- Simular automáticamente la gestión de batería (carga/descarga/venta)
-- Crear interfaz web interactiva con visualizaciones en tiempo real
-- Integrar datos meteorológicos mediante API de OpenWeatherMap
-- Permitir configuración personalizada de parámetros del sistema
-- Ofrecer escenarios de simulación para maximizar beneficios
+ data/                  # Base de datos DuckDB
+    optisolar.duckdb
 
-## 🚀 Estado Actual
+ models/                # Modelos ML entrenados
+    solar_predictor.pkl
 
-**Fase actual:** Diseño inicial y configuración del entorno de trabajo
+ pages/                 # Páginas adicionales de Streamlit (opcional)
 
-### Progreso
-- [x] Definición del proyecto (UT0)
-- [x] Creación del repositorio GitHub
-- [x] Configuración del tablero Trello
-- [x] Diseño de wireframes/mockups
-- [ ] Desarrollo del modelo de ML
-- [ ] Desarrollo de la interfaz web
-- [ ] Integración de API meteorológica
-- [ ] Simulación económica
-- [ ] Optimización y pruebas
+ templates/             # Plantillas HTML personalizadas (opcional)
+```
 
-## 🛠️ Tecnologías
+##  Instalación
 
-### Lenguajes y Frameworks
-- **Python 3.x** - Lenguaje principal
-- **Streamlit** - Framework web
-- **Plotly** - Visualización interactiva
-- **Matplotlib/Seaborn** - Gráficos adicionales
+### 1. Clonar o crear el proyecto
 
-### Bibliotecas de ML y Análisis
-- **pandas** - Manipulación de datos
-- **numpy** - Cálculos numéricos
-- **scikit-learn** - Machine Learning
-- **XGBoost/Random Forest** - Modelos predictivos
+```powershell
+cd C:\OptiSolarAI
+```
 
-### APIs y Servicios
-- **OpenWeatherMap API** - Datos meteorológicos en tiempo real
+### 2. Crear entorno virtual
 
-### Herramientas de Desarrollo
-- **Git/GitHub** - Control de versiones
-- **Trello** - Gestión de tareas (Kanban)
-
-## 📦 Funcionalidades Previstas
-
-### Interfaz de Usuario
-- Panel principal con estado de batería y predicciones
-- Gráficos interactivos de ahorro y beneficios
-- Configuración personalizable (capacidad batería, tarifas, horarios)
-- Visualización de datos meteorológicos y alertas
-
-### Simulación Inteligente
-- Lógica automática de carga/descarga/venta optimizada
-- Escenarios de simulación comparativos
-- Exportación de resultados en CSV
-
-### Educación y Transparencia
-- Visualización de decisiones de la IA
-- Comparación de estrategias de gestión energética
-
-## 📅 Planificación
-
-| Fase | Duración | Descripción |
-|------|----------|-------------|
-| **Fase 1** | 1 semana | Definición y análisis |
-| **Fase 2** | 2 semanas | Diseño del modelo de ML |
-| **Fase 3** | 2 semanas | Desarrollo de interfaz web |
-| **Fase 4** | 1 semana | Integración de datos meteorológicos |
-| **Fase 5** | 1 semana | Simulación y visualización económica |
-| **Fase 6** | 1 semana | Optimización y pruebas |
-| **Fase 7** | 1 semana | Presentación final y memoria |
-
-**Duración total estimada:** 9 semanas
-
-## 💡 Impacto y Aspectos Éticos
-
-- **Sostenibilidad:** Reduce dependencia de la red eléctrica convencional
-- **Optimización económica:** Maximiza beneficios de la inversión solar
-- **Protección de datos:** Solo datos públicos y simulaciones
-- **Accesibilidad:** Interfaz intuitiva y educativa
-- **Open Source:** Todas las herramientas son de código abierto
-
-## 🚀 Instalación (Próximamente)
-
-# bash
-# Clonar el repositorio
-git clone https://github.com/tu-usuario/OptiSolarAI.git
-
-# Entrar al directorio
-cd OptiSolarAI
-
-# Crear entorno virtual
+```powershell
 python -m venv venv
+.\venv\Scripts\Activate.ps1
+```
 
-# Activar entorno virtual
-# Windows:
-venv\Scripts\activate
-# Linux/Mac:
-source venv/bin/activate
+### 3. Instalar dependencias
 
-# Instalar dependencias
+```powershell
 pip install -r requirements.txt
+```
 
-# Ejecutar la aplicación
+##  Ejecutar la Aplicación
+
+```powershell
 streamlit run app.py
 ```
 
-## 📖 Documentación
+La aplicación se abrirá automáticamente en `http://localhost:8501`
 
-La documentación completa estará disponible en el directorio `/docs` una vez el proyecto esté más avanzado.
+##  Uso del Dashboard
 
-## 👤 Autor
+### 1. Cargar Datos Iniciales
 
-**Diego Quiroga Bausa**
-- Curso: 2025/2026
-- Proyecto Intermodular
+- En el **sidebar**, haz clic en " Cargar Datos de Ejemplo"
+- Esto generará 7 días de datos sintéticos realistas
 
-## 📝 Licencia
+### 2. Entrenar Modelo ML
 
-Este proyecto está bajo licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
+- En el **sidebar**, haz clic en " Entrenar Modelo ML"
+- El modelo Random Forest se entrenará con los datos disponibles
 
-## 🔗 Enlaces
+### 3. Explorar las Pestañas
 
-- **Repositorio GitHub:** [https://github.com/Diegoqb98/OptiSolarAI]
-- **Tablero Trello:** [https://trello.com/b/yTMdJhvn/optisolarai]
-- **Mockups:** Ver carpeta `/MockUps`
+####  Dashboard General
+- Visualiza precios de electricidad
+- Monitorea producción solar en tiempo real
+- Revisa condiciones climáticas
 
-## 🎨 Mockups del Proyecto
+####  Simulación de Batería
+- Configura capacidad de batería y consumo
+- Ejecuta simulaciones para optimizar beneficios
+- Obtén recomendaciones inteligentes
 
-### Pantalla Principal - Home
-![MockUp Home](MockUps/MockUp_Home.png)
+####  Predicciones ML
+- Realiza predicciones individuales de producción
+- Analiza importancia de variables climáticas
+- Visualiza métricas del modelo (R, MAE)
 
-### Pantalla de Análisis - Gráficas
-![MockUp Gráficas](MockUps/MockUp_Graficas.png)
+####  Análisis Financiero
+- Calcula ROI de tu instalación solar
+- Determina periodo de payback
+- Proyecta beneficios a largo plazo
 
-## 📧 Contacto
+##  Configuración
 
-Para consultas o sugerencias sobre el proyecto, puedes contactar a través de GitHub Issues.
+### Base de Datos DuckDB
+
+Las tablas se crean automáticamente:
+- `precios_luz`: Precios horarios de electricidad
+- `produccion_solar`: Producción histórica
+- `clima`: Datos meteorológicos
+- `simulaciones_bateria`: Historial de simulaciones
+
+### API de OpenWeatherMap (Opcional)
+
+Para datos climáticos reales, edita `ml_engine.py`:
+
+```python
+api_client = OpenWeatherAPIClient(api_key="TU_API_KEY")
+```
+
+Obtén tu API key gratis en: https://openweathermap.org/api
+
+##  Dependencias Principales
+
+- **streamlit**: Framework web para el dashboard
+- **duckdb**: Base de datos analítica embebida
+- **plotly**: Visualizaciones interactivas
+- **pandas**: Manipulación de datos
+- **scikit-learn**: Machine Learning (Random Forest)
+- **requests**: Cliente HTTP para APIs
+
+##  Algoritmo de Simulación de Batería
+
+El simulador implementa una estrategia inteligente:
+
+1. **Exceso de Producción + Precio Bajo**  CARGAR batería
+2. **Déficit + Precio Alto**  DESCARGAR batería
+3. **Precio Alto + Batería Llena**  VENDER a la red
+4. **Precio Bajo + Batería Vacía**  COMPRAR de la red
+
+##  Modelo de Machine Learning
+
+**Algoritmo**: Random Forest Regressor
+**Features**: 
+- Temperatura (C)
+- Nubosidad (%)
+- Humedad (%)
+- Radiación solar (W/m)
+
+**Target**: Producción solar (kWh)
+
+**Métricas**:
+- R Score: Bondad de ajuste
+- MAE: Error absoluto medio
+
+##  Contribuciones
+
+Este proyecto es educativo. Siéntete libre de:
+- Añadir nuevas funcionalidades
+- Mejorar los algoritmos
+- Integrar APIs reales de precios de luz
+- Crear tests unitarios
+
+##  Licencia
+
+Proyecto educativo - UD1A Ciencia de Datos
+
+##  Autor
+
+Desarrollado como proyecto de Sistema de Gestión de Energía Solar
 
 ---
 
-**Nota:** Este proyecto está en fase de desarrollo activo. Las funcionalidades y documentación se irán actualizando progresivamente.
+** Nota**: Este proyecto utiliza datos sintéticos para demostración. Para uso en producción, integra APIs reales de precios de electricidad y meteorología.

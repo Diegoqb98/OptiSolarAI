@@ -16,56 +16,36 @@ parts/
 sdist/
 var/
 wheels/
-pip-wheel-metadata/
-share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
 
 # Virtual Environment
 venv/
-env/
 ENV/
-env.bak/
-venv.bak/
+env/
 
-# IDEs
+# DuckDB Database
+data/*.duckdb
+data/*.db
+
+# Machine Learning Models
+models/*.pkl
+models/*.joblib
+
+# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
-*~
 
-# Jupyter Notebook
-.ipynb_checkpoints
+# Streamlit
+.streamlit/
 
-# Environment variables
-.env
-.env.local
-
-# Database
-*.db
-*.sqlite3
-
-# Logs
-*.log
+# Jupyter Notebooks
+.ipynb_checkpoints/
+*.ipynb
 
 # OS
 .DS_Store
 Thumbs.db
-
-# Streamlit
-.streamlit/secrets.toml
-
-# Data files (temporal)
-data/temp/
-*.csv.tmp
-
-# Model files (large)
-models/*.pkl
-models/*.joblib
-models/*.h5
-
-# API Keys (security)
-config/api_keys.py
-secrets/
