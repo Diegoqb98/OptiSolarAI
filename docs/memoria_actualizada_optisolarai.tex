@@ -1,0 +1,346 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\geometry{margin=2.5cm}
+\setlist[itemize]{leftmargin=*}
+\setlist[enumerate]{leftmargin=*}
+
+\title{OptiSolarAI: Sistema Inteligente de Gesti\'on Energ\'etica\\
+para Maximizar Beneficios de la Energ\'ia Solar\\
+\large Memoria actualizada y ampliada}
+\author{Alumno: Diego Quiroga Bausa}
+\date{Curso 2025/2026 \\ Fecha de actualizaci\'on: 19/03/2026}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section*{Resumen Ejecutivo}
+OptiSolarAI es un sistema de apoyo a la decisi\'on para instalaciones solares que combina anal\'itica de datos, simulaci\'on energ\'etica y algoritmos de inteligencia artificial para mejorar la rentabilidad de la energ\'ia generada. En esta versi\'on de memoria se mantiene la base de la propuesta inicial y se incorporan, con mayor profundidad, todas las implementaciones relevantes realizadas durante el desarrollo.
+
+La evoluci\'on principal del proyecto respecto a la entrega inicial ha sido la incorporaci\'on de una capa de aprendizaje por refuerzo (Q-Learning) para la gesti\'on de bater\'ia, la ampliaci\'on y mejora del dataset sint\'etico de prueba, el robustecimiento de la capa de datos en DuckDB y la consolidaci\'on de una interfaz de simulaci\'on orientada a comparativa econ\'omica de estrategias de operaci\'on.
+
+\newpage
+
+\section{T\'itulo provisional del proyecto}
+\textbf{OptiSolarAI: Plataforma Web Interactiva para Optimizar el Uso y Beneficio de la Energ\'ia Solar mediante Machine Learning y Aprendizaje por Refuerzo.}
+
+\section{Introducci\'on y contexto}
+La energ\'ia solar ha crecido de forma sostenida tanto en el sector residencial como en el empresarial. Sin embargo, disponer de generaci\'on fotovoltaica no garantiza por s\'i sola una explotaci\'on eficiente de la energ\'ia producida. El problema real aparece en la operaci\'on diaria: decidir cu\'ando consumir energ\'ia propia, cu\'ando almacenarla y cu\'ando venderla a la red.
+
+En la pr\'actica, muchas instalaciones operan con reglas est\'aticas o por intuici\'on. Esto provoca p\'erdidas de oportunidad econ\'omica, especialmente cuando el precio de la electricidad var\'ia por horas y no se adapta la estrategia de bater\'ia a ese contexto din\'amico.
+
+OptiSolarAI aborda este reto con una aplicaci\'on construida en Streamlit, estructurada en m\'odulos de datos, l\'ogica, predicci\'on y visualizaci\'on. El sistema permite ejecutar simulaciones operativas, cuantificar el impacto econ\'omico de las decisiones y comparar dos enfoques de control:
+\begin{itemize}
+    \item Estrategia cl\'asica por reglas heur\'isticas.
+    \item Estrategia adaptativa con agente de aprendizaje por refuerzo (Q-Learning).
+\end{itemize}
+
+Esta memoria actualizada no reemplaza tu propuesta original, sino que la extiende y la aterriza sobre el estado real del repositorio y las implementaciones efectivas alcanzadas.
+
+\section{Objetivos}
+\subsection{Objetivo general}
+Crear una plataforma web interactiva que permita a empresas y particulares gestionar de manera inteligente la energ\'ia solar, maximizando tanto la eficiencia energ\'etica como los beneficios econ\'omicos.
+
+\subsection{Objetivos espec\'ificos iniciales (base de memoria)}
+\begin{enumerate}
+    \item Desarrollar un modelo de Machine Learning que prediga la producci\'on solar y el precio horario de la electricidad.
+    \item Simular autom\'aticamente la carga, descarga y venta de energ\'ia de la bater\'ia seg\'un las predicciones del modelo.
+    \item Desarrollar una interfaz web en Streamlit con visualizaciones interactivas de ahorro y beneficios.
+    \item Integrar datos meteorol\'ogicos reales mediante API externa para mejorar predicciones.
+    \item Permitir configuraci\'on personalizada de bater\'ia, consumo y estrategia.
+    \item Ofrecer escenarios de simulaci\'on para apoyar la toma de decisiones.
+    \item Mostrar de forma comprensible c\'omo la IA influye en la gesti\'on energ\'etica.
+\end{enumerate}
+
+\subsection{Objetivos espec\'ificos ampliados con lo nuevo implementado}
+\begin{enumerate}
+    \item Incorporar un agente Q-Learning operativo para decidir acciones de bater\'ia por estado discretizado.
+    \item Persistir el conocimiento del agente RL para reutilizar aprendizaje entre ejecuciones.
+    \item Aumentar la calidad del conjunto de datos sint\'eticos de test (de 7 a 30 d\'ias) para entrenar y validar mejor.
+    \item Endurecer la capa de datos con \texttt{try/except} y salidas seguras para evitar ca\'idas de la app.
+    \item Integrar flujo de entrenamiento del agente RL en la interfaz de simulaci\'on con feedback visual.
+    \item Medir resultados econ\'omicos hora a hora y acumulados para comparar estrategias de control.
+    \item Documentar el estado real de funcionalidades implementadas frente a las inicialmente previstas.
+\end{enumerate}
+
+\section{Impacto y aspectos \'eticos}
+\begin{itemize}
+    \item \textbf{Sostenibilidad:} favorece el consumo eficiente de energ\'ia renovable y reduce compras en franjas de precio desfavorable.
+    \item \textbf{Impacto econ\'omico:} cuantifica beneficios potenciales al optimizar decisiones de compra/venta/almacenamiento.
+    \item \textbf{Privacidad:} no requiere datos personales para la simulaci\'on base; trabaja con datos sint\'eticos o agregados.
+    \item \textbf{Transparencia algor\'itmica:} cada hora de simulaci\'on incluye decisi\'on tomada, energ\'ia movida y resultado econ\'omico.
+    \item \textbf{Uso responsable de IA:} la IA act\'ua como apoyo a decisi\'on y no como sustituci\'on de criterio operativo experto.
+    \item \textbf{Licencias y ecosistema:} el desarrollo se apoya en librer\'ias abiertas (Streamlit, DuckDB, Plotly, pandas, numpy, scikit-learn).
+\end{itemize}
+
+\section{Metodolog\'ia y herramientas}
+\subsection{Enfoque metodol\'ogico}
+El proyecto se ha desarrollado de forma iterativa, con incrementos funcionales y validaci\'on continua sobre una base modular. Se ha seguido una l\'ogica tipo Kanban: dise\~no de funcionalidad, implementaci\'on, prueba manual, ajuste y documentaci\'on.
+
+\subsection{Stack t\'ecnico}
+\begin{itemize}
+    \item \textbf{Lenguaje principal:} Python 3.x.
+    \item \textbf{Interfaz:} Streamlit.
+    \item \textbf{Visualizaci\'on:} Plotly.
+    \item \textbf{An\'alisis de datos:} pandas, numpy.
+    \item \textbf{Modelo supervisado:} Random Forest Regressor (scikit-learn).
+    \item \textbf{Aprendizaje por refuerzo:} Q-Learning tabular.
+    \item \textbf{Base de datos:} DuckDB (persistencia local anal\'itica).
+    \item \textbf{Conectividad externa:} cliente OpenWeatherMap con fallback.
+    \item \textbf{Entorno:} scripts de instalaci\'on/ejecuci\'on para Windows (\texttt{INSTALAR.bat}, \texttt{EJECUTAR.bat}).
+\end{itemize}
+
+\section{Planificaci\'on inicial y estado real de avance}
+\subsection{Planificaci\'on base (memoria original)}
+\begin{enumerate}
+    \item Fase 1: Definici\'on y an\'alisis.
+    \item Fase 2: Dise\~no del modelo de Machine Learning.
+    \item Fase 3: Desarrollo de interfaz web.
+    \item Fase 4: Integraci\'on meteorol\'ogica.
+    \item Fase 5: Simulaci\'on y visualizaci\'on econ\'omica.
+    \item Fase 6: Optimizaci\'on y pruebas.
+    \item Fase 7: Presentaci\'on final y memoria.
+\end{enumerate}
+
+\subsection{Estado actualizado por fases}
+\begin{itemize}
+    \item \textbf{Fase 1:} completada (definici\'on de m\'etricas y arquitectura base).
+    \item \textbf{Fase 2:} completada (entrenamiento de Random Forest y serializaci\'on de modelo).
+    \item \textbf{Fase 3:} completada con evoluci\'on visual y reorganizaci\'on de flujo operativo.
+    \item \textbf{Fase 4:} parcialmente completada (cliente API implementado; integraci\'on productiva mejorable).
+    \item \textbf{Fase 5:} completada y ampliada (simulaci\'on cl\'asica + simulaci\'on con agente RL).
+    \item \textbf{Fase 6:} completada en robustez de consultas y manejo de errores.
+    \item \textbf{Fase 7:} en consolidaci\'on documental y alineaci\'on final de UI con todas las capacidades ya codificadas.
+\end{itemize}
+
+\section{Funcionalidades previstas e implementaci\'on actual}
+\subsection{Funcionalidades previstas en la memoria original}
+\begin{itemize}
+    \item Panel principal con estado de bater\'ia, predicciones y precios.
+    \item Gr\'aficos de ahorro, venta y carga/descarga.
+    \item Configuraci\'on de bater\'ia, tarifas y consumo.
+    \item Integraci\'on meteorol\'ogica y alertas.
+    \item Escenarios comparativos para empresas y particulares.
+    \item Exportaci\'on de resultados.
+    \item Visualizaci\'on de c\'omo decide la IA.
+\end{itemize}
+
+\subsection{Funcionalidades nuevas implementadas desde la entrega}
+\begin{enumerate}
+    \item \textbf{Agente RL en producci\'on de simulaci\'on}:
+    Se implementa \texttt{AgenteRL} en \texttt{rl\_engine.py} y se integra en \texttt{logic.py} para seleccionar acciones seg\'un estado.
+
+    \item \textbf{Modo dual de simulaci\'on}:
+    En \texttt{app.py} se habilita selecci\'on entre \textit{Reglas Fijas} y \textit{Q-Learning}, con opci\'on de entrenamiento previo por \textit{\'epocas}.
+
+    \item \textbf{Persistencia de aprendizaje}:
+    El agente guarda la Q-table en \texttt{models/q\_learning\_agent.pkl} y la recupera en ejecuciones futuras.
+
+    \item \textbf{Ampliaci\'on del dataset sint\'etico}:
+    Se pasa de 7 d\'ias a 30 d\'ias para aumentar estabilidad de entrenamiento y validez de simulaci\'on.
+
+    \item \textbf{Mayor robustez en base de datos}:
+    Consultas encapsuladas en \texttt{try/except} con devoluci\'on de dataframes vac\'ios compatibles para evitar interrupciones de la app.
+
+    \item \textbf{M\'etricas de resultado m\'as completas}:
+    Beneficio total, beneficio medio diario, carga final, energ\'ia comprada/vendida y ciclos de bater\'ia.
+
+    \item \textbf{Mejora de experiencia visual}:
+    Tema oscuro con estilo glassmorphism, componentes KPI y gr\'aficos adaptados al contexto de operaci\'on.
+
+    \item \textbf{M\'odulos de soporte consolidados}:
+    \texttt{config.py} y \texttt{utils.py} ampl\'ian configuraci\'on centralizada, validaciones y utilidades para reporte/an\'alisis.
+\end{enumerate}
+
+\section{Arquitectura t\'ecnica actual}
+\subsection{Estructura modular}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.28\textwidth} p{0.66\textwidth}}
+\toprule
+\textbf{Archivo} & \textbf{Responsabilidad} \\
+\midrule
+\texttt{app.py} & UI Streamlit, selecci\'on de fechas/par\'ametros, entrenamiento y ejecuci\'on de simulaci\'on, visualizaci\'on econ\'omica. \\
+\texttt{database.py} & Conexi\'on DuckDB, creaci\'on de tablas, inserciones y consultas de precios, producci\'on, clima, consumo y estad\'isticas. \\
+\texttt{ml\_engine.py} & Modelo Random Forest, inferencia, pron\'ostico y cliente OpenWeatherMap con fallback. \\
+\texttt{logic.py} & Simulador de bater\'ia, decisiones heur\'isticas y puente con agente RL. \\
+\texttt{rl\_engine.py} & Implementaci\'on de Q-Learning (estado, acci\'on, recompensa, Bellman, persistencia). \\
+\texttt{config.py} & Parametrizaci\'on de bater\'ia, precios, financiero, visualizaci\'on y validaciones. \\
+\texttt{utils.py} & Utilidades de anal\'itica, exportaci\'on, transformaciones y helpers de presentaci\'on. \\
+\bottomrule
+\end{longtable}
+
+\subsection{Modelo de datos principal (DuckDB)}
+\begin{itemize}
+    \item \texttt{precios\_luz(fecha\_hora, precio\_kwh)}
+    \item \texttt{produccion\_solar(fecha\_hora, produccion\_kwh, radiacion)}
+    \item \texttt{clima(fecha\_hora, temperatura, nubosidad, humedad)}
+    \item \texttt{simulaciones\_bateria(...)}
+    \item \texttt{registre\_consum(...)}
+\end{itemize}
+
+\section{Detalle de implementaciones nuevas}
+\subsection{1) Agente de Q-Learning}
+El estado se discretiza en cuatro dimensiones: bloque horario, nivel de carga, nivel de precio y balance energ\'etico. Con esa discretizaci\'on, el agente aplica una pol\'itica \textit{epsilon-greedy} y actualiza la tabla Q seg\'un Bellman.
+
+\textbf{Valor t\'ecnico aportado:}
+\begin{itemize}
+    \item Permite adaptaci\'on a condiciones cambiantes.
+    \item Evita depender exclusivamente de umbrales est\'aticos.
+    \item Abre puerta a comparar rendimiento de estrategia cl\'asica frente a estrategia aprendida.
+\end{itemize}
+
+\subsection{2) Integraci\'on RL en flujo de simulaci\'on real}
+En interfaz se a\~nade selector de m\'etodo y entrenamiento opcional en varias \textit{\'epocas}. El usuario ejecuta una simulaci\'on final tras entrenamiento y obtiene KPIs y trazas horarias.
+
+\textbf{Resultado funcional:}
+\begin{itemize}
+    \item IA explicable por historial de decisiones.
+    \item Comparativa de impacto econ\'omico seg\'un estrategia.
+\end{itemize}
+
+\subsection{3) Datos sint\'eticos ampliados y m\'as realistas}
+El sistema de carga de ejemplo genera 30 d\'ias de datos con patrones diarios y semanales para precio y producci\'on, aportando mayor estabilidad a entrenamiento y pruebas.
+
+\textbf{Mejora conseguida:}
+\begin{itemize}
+    \item Menos sensibilidad a outliers de pocos d\'ias.
+    \item Escenarios m\'as representativos para validaci\'on.
+\end{itemize}
+
+\subsection{4) Robustez de consultas y experiencia de fallo seguro}
+Se implementa un enfoque de tolerancia a fallos en consultas a BD: ante error, se retornan dataframes vac\'ios con esquema esperado. La interfaz no colapsa y puede mostrar mensajes de estado en lugar de errores crudos.
+
+\subsection{5) Evoluci\'on de interfaz y dise\~no}
+Se incorpora tema visual coherente con objetivo de dashboard energ\'etico avanzado: fondo degradado, tarjetas semitransparentes, mejora de legibilidad y visualizaci\'on de m\'etricas clave.
+
+\subsection{6) M\'odulos de actualizaci\'on y trazabilidad de cambios}
+El repositorio incluye scripts de actualizaci\'on (\texttt{update\_app.py}, \texttt{update\_app\_ui.py}) que evidencian la evoluci\'on incremental de la app y la introducci\'on de nuevas capacidades sobre versiones previas.
+
+\section{Flujo de simulaci\'on y c\'alculo econ\'omico}
+\subsection{L\'ogica general por hora}
+Para cada marca temporal:
+\begin{enumerate}
+    \item Se calcula el balance: \texttt{energia\_disponible = produccion - consumo}.
+    \item Se decide acci\'on mediante heur\'istica o RL.
+    \item Se ejecuta la acci\'on respetando capacidad y eficiencias.
+    \item Se actualiza beneficio de la hora y beneficio acumulado.
+    \item Se registra el estado para trazabilidad y visualizaci\'on.
+\end{enumerate}
+
+\subsection{Interpretaci\'on de decisiones}
+\begin{itemize}
+    \item \texttt{cargar}: almacenar excedente para uso o venta posterior.
+    \item \texttt{descargar}: cubrir d\'eficit y evitar compra cara.
+    \item \texttt{vender}: monetizar excedente en momentos oportunos.
+    \item \texttt{comprar}: cubrir d\'eficit cuando bater\'ia no puede aportar.
+    \item \texttt{mantener}: acci\'on neutra (con reglas de seguridad sobre d\'eficit/excedente).
+\end{itemize}
+
+\section{Machine Learning supervisado y meteorolog\'ia}
+\subsection{Modelo de predicci\'on solar}
+El modelo Random Forest usa variables meteorol\'ogicas (
+\texttt{temperatura}, \texttt{nubosidad}, \texttt{humedad}, \texttt{radiacion}
+) para estimar \texttt{produccion\_kwh}.
+
+\subsection{Entrenamiento y persistencia}
+\begin{itemize}
+    \item Divisi\'on train/test para evaluaci\'on interna.
+    \item C\'alculo de MAE y R\textsuperscript{2} como m\'etricas de referencia.
+    \item Guardado de modelo y metadatos en \texttt{models/solar\_predictor.pkl}.
+\end{itemize}
+
+\subsection{Integraci\'on de API meteorol\'ogica}
+Se implementa cliente para OpenWeatherMap con timeouts y fallback de datos de ejemplo. Esto evita bloquear la app cuando no hay API key o conectividad.
+
+\section{Validaci\'on, pruebas y calidad}
+\subsection{Pruebas funcionales realizadas}
+\begin{itemize}
+    \item Carga de datos sint\'eticos y verificaci\'on de recuentos en BD.
+    \item Entrenamiento de modelo ML desde interfaz.
+    \item Ejecuci\'on de simulaci\'on con reglas fijas.
+    \item Ejecuci\'on de simulaci\'on con agente RL y entrenamiento previo.
+    \item Revisi\'on de KPIs y consistencia de gr\'aficos de beneficio/carga.
+\end{itemize}
+
+\subsection{Mecanismos de calidad incorporados}
+\begin{itemize}
+    \item Control de errores en lectura de datos.
+    \item Validaciones b\'asicas en configuraci\'on y par\'ametros.
+    \item Separaci\'on por m\'odulos para reducir acoplamiento.
+\end{itemize}
+
+\section{Comparativa: memoria inicial vs estado actual}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.45\textwidth} p{0.49\textwidth}}
+\toprule
+\textbf{Elemento de memoria inicial} & \textbf{Estado actual y ampliaciones} \\
+\midrule
+Predicci\'on con ML & Implementada con Random Forest y persistencia de modelo. \\
+Simulaci\'on de bater\'ia & Implementada y extendida con enfoque dual (heur\'istico + RL). \\
+Interfaz interactiva & Implementada con visualizaciones econ\'omicas y panel de simulaci\'on. \\
+Integraci\'on clima & Cliente API implementado con fallback seguro. \\
+Escenarios de estrategia & Implementados a trav\'es de par\'ametros y tipo de controlador. \\
+Monitor consumo y previsi\'on dedicados en UI & Parcial respecto a versiones documentadas; en c\'odigo existen componentes y funciones, pero la UI actual est\'a centrada en simulaci\'on y beneficio. \\
+Robustez de sistema & Mejorada mediante manejo de excepciones y respuestas seguras en BD. \\
+\bottomrule
+\end{longtable}
+
+\section{Riesgos, limitaciones y trabajo pendiente}
+\subsection{Limitaciones actuales}
+\begin{itemize}
+    \item El entrenamiento RL est\'a acotado a una discretizaci\'on sencilla de estados.
+    \item La validaci\'on se realiza principalmente con datos sint\'eticos.
+    \item Existe desalineaci\'on parcial entre algunas piezas documentadas hist\'oricamente y la UI activa actual.
+\end{itemize}
+
+\subsection{Riesgos t\'ecnicos}
+\begin{itemize}
+    \item Sobreajuste del controlador si se entrena con escenarios poco variados.
+    \item Dependencia de la calidad de datos para que la estrategia econ\'omica sea fiable.
+    \item Diferencias entre entorno acad\'emico y despliegue real (tarifas, normativa, degradaci\'on de bater\'ia, etc.).
+\end{itemize}
+
+\subsection{Pr\'oximos pasos recomendados}
+\begin{enumerate}
+    \item Reintegrar en UI, de forma consistente, todas las capacidades ya presentes en m\'odulos (monitor consumo y previsi\'on avanzada).
+    \item Incorporar datos reales de precio y meteorolog\'ia con pipeline de ingesta estable.
+    \item A\~nadir cuadro comparativo autom\'atico entre estrategia heur\'istica y RL por periodo.
+    \item Introducir exportaci\'on formal de reportes (CSV/PDF) desde interfaz principal.
+    \item Definir un paquete de pruebas reproducibles para defensa final del proyecto.
+\end{enumerate}
+
+\section{Conclusi\'on final actualizada}
+OptiSolarAI mantiene la visi\'on de la memoria original y la ampl\'ia con avances t\'ecnicos relevantes. El proyecto ha pasado de un prototipo centrado en predicci\'on y reglas fijas a una plataforma capaz de experimentar con control inteligente adaptativo mediante aprendizaje por refuerzo.
+
+La arquitectura modular actual permite evolucionar con rapidez y conservar trazabilidad entre datos, decisiones y resultados econ\'omicos. A nivel acad\'emico, el proyecto ya aporta una demostraci\'on completa de integraci\'on entre ciencia de datos, IA y software aplicado a energ\'ia renovable. El siguiente hito es la consolidaci\'on final de interfaz y pruebas para presentar una versi\'on de cierre totalmente alineada entre lo implementado y lo expuesto al usuario.
+
+\section*{Anexo A: Archivos clave del repositorio}
+\begin{itemize}
+    \item \texttt{app.py}
+    \item \texttt{database.py}
+    \item \texttt{logic.py}
+    \item \texttt{ml\_engine.py}
+    \item \texttt{rl\_engine.py}
+    \item \texttt{config.py}
+    \item \texttt{utils.py}
+    \item \texttt{requirements.txt}
+    \item \texttt{docs/UD1B\_documentacion\_tecnica.md}
+\end{itemize}
+
+\section*{Anexo B: Comandos de ejecuci\'on}
+\begin{itemize}
+    \item Crear entorno: \texttt{python -m venv venv}
+    \item Activar entorno (Windows): \texttt{.\\venv\\Scripts\\Activate.ps1}
+    \item Instalar dependencias: \texttt{pip install -r requirements.txt}
+    \item Ejecutar app: \texttt{streamlit run app.py}
+\end{itemize}
+
+\end{document}
