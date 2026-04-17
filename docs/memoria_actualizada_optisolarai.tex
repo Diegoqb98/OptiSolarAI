@@ -17,7 +17,7 @@
 para Maximizar Beneficios de la Energ\'ia Solar\\
 \large Memoria actualizada y ampliada}
 \author{Alumno: Diego Quiroga Bausa}
-\date{Curso 2025/2026 \\ Fecha de actualizaci\'on: 19/03/2026}
+\date{Curso 2025/2026 \\ Fecha de actualizaci\'on: 17/04/2026}
 
 \begin{document}
 \maketitle
@@ -160,6 +160,12 @@ El proyecto se ha desarrollado de forma iterativa, con incrementos funcionales y
 
     \item \textbf{M\'odulos de soporte consolidados}:
     \texttt{config.py} y \texttt{utils.py} ampl\'ian configuraci\'on centralizada, validaciones y utilidades para reporte/an\'alisis.
+
+    \item \textbf{Reinicio r\'apido de datos demo desde interfaz}:
+    Se incorpora en el \textit{sidebar} un bot\'on \texttt{Reiniciar Dades Demo} que limpia las tablas principales de demo para volver a un estado inicial de trabajo sin intervenir manualmente la base de datos.
+
+    \item \textbf{Nueva operaci\'on de mantenimiento en base de datos}:
+    En \texttt{database.py} se implementa \texttt{reset\_datos\_demo()}, que elimina registros de \texttt{precios\_luz}, \texttt{produccion\_solar} y \texttt{clima}, devolviendo adem\'as un resumen de recuento de filas eliminadas para trazabilidad.
 \end{enumerate}
 
 \section{Arquitectura t\'ecnica actual}
@@ -219,6 +225,8 @@ El sistema de carga de ejemplo genera 30 d\'ias de datos con patrones diarios y 
 \subsection{4) Robustez de consultas y experiencia de fallo seguro}
 Se implementa un enfoque de tolerancia a fallos en consultas a BD: ante error, se retornan dataframes vac\'ios con esquema esperado. La interfaz no colapsa y puede mostrar mensajes de estado en lugar de errores crudos.
 
+Como mejora operativa reciente, se incorpora adem\'as un mecanismo de \textbf{reinicio de datos de demo} invocable desde la interfaz. Esta funcionalidad reduce tiempos de preparaci\'on para pruebas repetidas, evita manipulaciones manuales de la base de datos y facilita demostraciones en clase con estado limpio.
+
 \subsection{5) Evoluci\'on de interfaz y dise\~no}
 Se incorpora tema visual coherente con objetivo de dashboard energ\'etico avanzado: fondo degradado, tarjetas semitransparentes, mejora de legibilidad y visualizaci\'on de m\'etricas clave.
 
@@ -269,6 +277,7 @@ Se implementa cliente para OpenWeatherMap con timeouts y fallback de datos de ej
     \item Ejecuci\'on de simulaci\'on con reglas fijas.
     \item Ejecuci\'on de simulaci\'on con agente RL y entrenamiento previo.
     \item Revisi\'on de KPIs y consistencia de gr\'aficos de beneficio/carga.
+    \item Verificaci\'on del bot\'on de reinicio de datos demo y comprobaci\'on de recuentos antes/despu\'es de la limpieza.
 \end{itemize}
 
 \subsection{Mecanismos de calidad incorporados}
@@ -290,6 +299,7 @@ Integraci\'on clima & Cliente API implementado con fallback seguro. \\
 Escenarios de estrategia & Implementados a trav\'es de par\'ametros y tipo de controlador. \\
 Monitor consumo y previsi\'on dedicados en UI & Parcial respecto a versiones documentadas; en c\'odigo existen componentes y funciones, pero la UI actual est\'a centrada en simulaci\'on y beneficio. \\
 Robustez de sistema & Mejorada mediante manejo de excepciones y respuestas seguras en BD. \\
+Operaciones de mantenimiento de datos & A\~nadida limpieza de datos demo desde interfaz y funci\'on dedicada en capa de datos. \\
 \bottomrule
 \end{longtable}
 
@@ -315,6 +325,7 @@ Robustez de sistema & Mejorada mediante manejo de excepciones y respuestas segur
     \item A\~nadir cuadro comparativo autom\'atico entre estrategia heur\'istica y RL por periodo.
     \item Introducir exportaci\'on formal de reportes (CSV/PDF) desde interfaz principal.
     \item Definir un paquete de pruebas reproducibles para defensa final del proyecto.
+    \item A\~nadir confirmaci\'on expl\'icita (doble validaci\'on) para acciones destructivas como el reinicio de datos.
 \end{enumerate}
 
 \section{Conclusi\'on final actualizada}
