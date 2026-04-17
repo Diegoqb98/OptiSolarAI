@@ -18,6 +18,7 @@ from database import (
     get_clima,
     get_datos_completos,
     cargar_datos_ejemplo,
+    reset_datos_demo,
     get_estadisticas_resumen,
     insert_consum,
     delete_consum,
@@ -254,6 +255,16 @@ with st.sidebar:
         with st.spinner("Carregant dades d'exemple..."):
             num_registres = cargar_datos_ejemplo()
             st.success(f"✅ {num_registres} registres carregats")
+            st.rerun()
+
+    if st.button("🧹 Reiniciar Dades Demo", use_container_width=True):
+        with st.spinner("Netejant dades de demo..."):
+            counts = reset_datos_demo()
+            total = sum(counts.values())
+            st.success(
+                f"✅ Dades reiniciades ({total} registres eliminats: "
+                f"preus {counts['preus_llum']}, producció {counts['produccio_solar']}, clima {counts['clima']})"
+            )
             st.rerun()
 
     if st.button("🤖 Entrenar Model ML", use_container_width=True):

@@ -150,6 +150,28 @@ def delete_consum(consum_id: int):
     conn.execute("DELETE FROM registre_consum WHERE id = ?", [consum_id])
 
 
+def reset_datos_demo() -> dict:
+    """
+    Esborra dades de demo de les taules principals.
+
+    Returns:
+        dict amb registres eliminats per taula
+    """
+    conn = get_database_connection()
+
+    counts = {
+        'preus_llum': conn.execute("SELECT COUNT(*) FROM precios_luz").fetchone()[0],
+        'produccio_solar': conn.execute("SELECT COUNT(*) FROM produccion_solar").fetchone()[0],
+        'clima': conn.execute("SELECT COUNT(*) FROM clima").fetchone()[0],
+    }
+
+    conn.execute("DELETE FROM precios_luz")
+    conn.execute("DELETE FROM produccion_solar")
+    conn.execute("DELETE FROM clima")
+
+    return counts
+
+
 # ============================================================================
 # CONSULTES
 # ============================================================================
